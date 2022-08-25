@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.khe.prj.member.map.MemberMapper">
+
+	<select id="memberSelectList"
+		resultType="co.khe.prj.member.vo.MemberVO">
+		select * from member
+	</select>
+
+	<select id="memberSelect" parameterType="co.khe.prj.member.vo.MemberVO" resultType="co.khe.prj.member.vo.MemberVO">
+		select * from member where member_id = #{member_id}
+		<!-- 로그인 체크 -->
+		<if test="member_password != null">
+		and member_password= #{member_password}
+		</if>
+	</select>
+	
+	<insert id="memberInsert">
+	</insert>
+	<update id="memberUpdate">
+	</update>
+	<delete id="memberDelete">
+	</delete>
+</mapper>
