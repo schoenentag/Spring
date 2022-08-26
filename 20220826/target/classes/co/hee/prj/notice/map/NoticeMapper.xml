@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.hee.prj.notice.map.NoticeMapper">
+	<select id="noticeSelect" resultType="co.hee.prj.notice.service.NoticeVO">
+		<!-- mapUnderscoreToCamelCase 사용 -->
+		<!-- mybatis-config.xml 에 설정 -->
+		SELECT notice_id,
+			   notice_writer,
+			   notice_title,
+			   notice_subject,
+			   notice_date,
+			   notice_hit,
+			   notice_attach,
+			   notice_attach_dir
+		FROM notice
+		WHERE notice_id = #{noticeId}
+	
+		<!-- column as 사용 -->
+		<!-- SELECT notice_id as noticeId,
+			   notice_writer as noticeWriter,
+			   notice_title as noticeTitle,
+			   notice_subject as noticeSubject,
+			   notice_date as noticeDate,
+			   notice_hit as noticeHit,
+			   notice_attach as noticeAttach,
+			   notice_attach_dir as noticeAttachDir
+		FROM notice
+		WHERE notice_id = #{noticeId} -->
+	</select>
+	
+	<insert id="noticeInsert">
+		<!-- insert 구문이 실행되기 전에 keyProperty에서 noticeId 값을 찾아옴, 결과값은 int로 받음 -->
+		<selectKey keyProperty="noticeId" order="BEFORE" resultType="int">
+			SELECT 
+			    CASE WHEN max(notice_id) IS NULL 
+			    THEN 1
+			    ELSE max(notice_id) + 1 
+			    END AS id
+			FROM notice
+		</selectKey>
+		
+		<!-- VO 이름과 동일 -->
+		INSERT INTO notice
+		VALUES(#{noticeId}, #{noticeWriter}, #{noticeTitle}, #{noticeSubject}, #{noticeDate}, 0, #{noticeAttach}, #{noticeAttachDir})
+	</insert>
+	
+	<update id="noticeUpdate">
+		update notice
+		<set>
+			<if test="noticeWriter != null">notice_writer = #{noticeWriter},</if>
+			<if test="noticeTitle != null">notice_title = #{noticeTitle},</if>
+			<if test="noticeSubject != null">notice_subject = #{noticeSubject},</if>
+			<if test="noticeDate != null">notice_date = #{noticeDate},</if>
+			<if test="noticeAttach != null">notice_attach = #{noticeAttach},</if>
+			<if test="noticeAttachDir != null">notice_attach_dir = #{noticeAttachDir}</if>
+		</set>
+		where notice_id = #{noticeId}
+	</update>
+	
+	<delete id="noticeDelete">
+	
+	</delete>
+	
+	<select id="noticeSearch" resultType="co.hee.prj.notice.service.NoticeVO">
+		select * from notice
+		where
+		<choose>
+			<when test="key == 1">notice_title like '%' || #{val} || '%'</when>
+			<when test="key == 2">notice_subject like '%' || #{val} || '%'</when>
+			<when test="key == 3">notice_writer = #{val}</when>
+		</choose>
+	</select>
+	<update id="noticeHitUpdate">
+	    update notice set notice_hit = notice_hit +1 where notice_id = #{noticeId}
+	</update>
+</mapper>

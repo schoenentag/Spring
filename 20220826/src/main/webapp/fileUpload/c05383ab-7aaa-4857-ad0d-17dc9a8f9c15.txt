@@ -1,0 +1,5 @@
+1. XMLHttpRequest 객체 생성
+2. 서버 URL
+3. 응답을 처리하는 콜백 함수(ajax.onload = function())
+4. 비동기 연결(ajax.open("get", url)
+5. 전송(ajax.send())
