@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.khe.review.member.map.MemberMapper">
+	<select id="memberSelectList"
+		resultType="co.khe.review.member.vo.MemberVO">
+		SELECT * FROM MEMBER
+	</select>
+	
+	<select id="memberSelect" parameterType="co.khe.review.member.vo.MemberVO" resultType="co.khe.review.member.vo.MemberVO">
+	    SELECT * FROM MEMBER WHERE MEMBER_ID = #{memberId}
+	    <!-- login check -->
+	    <if test="memberPassword != null">
+	    AND MEMBER_PASSWORD=#{memberPassword}
+	    </if>
+	</select>
+	
+	<insert id="memberInsert">
+	    INSERT INTO MEMBER 
+	    VALUES(#{memberId},#{memberPassword},#{memberName},'USER')
+	</insert>
+	
+	<update id="memberUpdate"></update>
+	<delete id="memberDelete"></delete>
+</mapper>
