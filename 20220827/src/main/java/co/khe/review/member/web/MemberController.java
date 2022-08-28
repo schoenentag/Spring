@@ -27,6 +27,13 @@ public class MemberController {
 		model.addAttribute("member", dao.memberSelect(vo));
 		return "member/memberSelect";
 	}
+	
+	//회원가입 폼 호출
+	@RequestMapping("/memberInsertForm.do")
+	public String memberInsertForm() {
+		return "member/memberInsertForm";
+	}
+	
 	@RequestMapping("/memberInsert.do")
 	public String memberInsert(MemberVO vo, Model model) {
 		int n = dao.memberInsert(vo);
@@ -35,7 +42,7 @@ public class MemberController {
 		} else {
 			model.addAttribute("message", "회원가입에 실패했습니다.");
 		}
-		return "member/memberInsert";
+		return "member/memberMessage";
 	}
 	//memberUpdate, memberDelete는 추가로 작성해야함
 	
@@ -55,6 +62,7 @@ public class MemberController {
 			session.setAttribute("id", vo.getMemberId());
 			session.setAttribute("password", vo.getMemberPassword());
 			session.setAttribute("author", vo.getMemberAuthor());
+			session.setAttribute("name", vo.getMemberName());
 			session.setAttribute("message", vo.getMemberName()+"님 환영합니다.");
 		}
 		return "member/memberMessage";
