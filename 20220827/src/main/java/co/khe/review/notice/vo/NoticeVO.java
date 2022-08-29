@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class NoticeVO {
 	private int noticeId;
-	private String noticeWrite;
+	private String noticeWriter;
 	private String noticeTitle;
 	private String noticeSubject;
 	@JsonFormat(pattern ="yyyy-MM-dd", timezone="Asia/Seoul")

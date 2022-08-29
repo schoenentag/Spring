@@ -57,7 +57,7 @@ public class NoticeController {
 		}
 		
 		dao.noticeInsert(vo);
-		System.out.println(vo.getNoticeWrite());
+		System.out.println(vo.getNoticeWriter());
 		System.out.println(vo.getNoticeDate());
 
 		return "redirect:noticeSelectList.do";

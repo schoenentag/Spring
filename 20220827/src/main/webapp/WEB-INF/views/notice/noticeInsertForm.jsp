@@ -38,7 +38,7 @@ table th {
 						<tr>
 							<th width="100px">작성자</th>
 							<td width="200px">		<!-- vo 객체 이름과 동일 -->
-								<input type="text" id="noticeWriter" name="noticeWriter" value="${name }" readonly="readonly" > 
+								<input type="text" id="noticeWriter" name="noticeWriter" value="${name}" readonly="readonly" ></td>
 							<th width="100px">작성일자</th>
 							<td width="200px">
 								<input type="date" id="noticeDate" name="noticeDate">

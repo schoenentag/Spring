@@ -14,7 +14,7 @@
 	        SELECT MAX(NVL(NOTICE_ID,0))+1 AS Id FROM NOTICE
 	    </selectKey>
 		INSERT INTO NOTICE
-		VALUES(#{noticeId},#{noticeWrite},#{noticeTitle},#{noticeSubject},#{noticeDate},0,#{noticeAttach},#{noticeAttachDir})
+		VALUES(#{noticeId},#{noticeWriter},#{noticeTitle},#{noticeSubject},#{noticeDate},0,#{noticeAttach},#{noticeAttachDir})
 	</insert>
 
 	<update id="noticeUpdate">
@@ -38,7 +38,7 @@
 		UPDATE NOTICE TESTNOTICE_HIT = NOTCIE_HIT +1 WHERE NOTICE_ID =#{notice_id}
 	</update>
 
-	<select id="noticeSearch">
+	<select id="noticeSearch" resultType="co.khe.review.notice.vo.NoticeVO">
 	    select * from notice
 	    where
 	    <choose>

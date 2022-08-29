@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
@@ -53,7 +53,7 @@
 		<button type="button" onclick="searchCall()">검색</button>
 	</div>
 
-	<table class="table">
+	<table class="table" >
 		<thead>
 			<tr>
 				<th scope="col">글번호</th>
@@ -98,14 +98,21 @@ function searchCall(){
 	let val =$("#val").val();
 	
 	$.ajax({
-		url : "ajaxNoticeSearch",
-		type:"post",
-		data:{"key":key, "val":val}		
+		url :'ajaxNoticeSearch.do',
+		method:'post',
+		data:{'key':key, 'val':val},
+		dataType:'json',
+		success: function(res){
+			console.log(res);
+		},
+		error: function(err){
+			console.log(err);
+		}
 	})
-	.done(res=>res.json())
-	.done(obj=>{
+	/* .then((res) => res.json())
+	.then((obj) => {
 		console.log("성공!");
-	}) 
+	}) */
 }
 	
 </script>

@@ -85,8 +85,8 @@
 			$("#memberName").val(inputName);
 			
 			//이거 안됨...
-		    formcheck();
-		    
+		    formCheck();
+			
 			//값 넘기기
 			$("#joinFrm").attr("action", "memberInsert.do");
 			$("#joinFrm").submit();
