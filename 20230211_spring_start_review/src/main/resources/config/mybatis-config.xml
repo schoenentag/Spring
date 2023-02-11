@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!-- mybatis Mapper가 NULL 값을 인식하지 못하기 때문에 해주는 설정 -->
+		<setting name="jdbcTypeForNull" value="NULL" />
+		
+		<!-- DB 컬럼명에 _ (Underscore)가 포함되어 있을 때
+		자동으로 카멜 표기법의 DTO와 매핑해주기 위해 설정 -->
+		<setting name="mapUnderscoreToCamelCase" value="True"/>
+	</settings>
+</configuration>
