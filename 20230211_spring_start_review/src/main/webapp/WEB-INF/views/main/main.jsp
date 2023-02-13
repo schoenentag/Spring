@@ -10,9 +10,9 @@
 <h1>메인 페이지에 오신 것을 환영합니다!</h1>
 
 회원가입<br>
-<a href="/signInForm.do">로그인</a><br>
+<a href="/prj/signInForm.do">로그인</a><br>
 <!-- url에 /prj가 포함되어야되는데 생략되서 에러 발생.. 확인해보기 -->
-게시판보기<br>
+<a href="/prj/noticeListAll.do">게시판보기</a><br>
 관리자페이지<br>
 
 </body>
