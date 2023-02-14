@@ -32,33 +32,36 @@
 		<level value="info" />
 	</logger>
 	
-	<!-- SQL Logger -->
-	<logger name="jdbc.sqltiming" additivity="false">
-		<level value="warn" />
-		<appender-ref ref="console"/> 
-	</logger>
+	<!-- info부터 적용 table사용시 -->
+    <logger name="jdbc.resultsettable" additivity="false"> 
+      <level value="info" /> 
+      <appender-ref ref="console" /> 
+    </logger> 
 
-	<logger name="jdbc.sqlonly" additivity="false"> 
-		<level value="info"/> 
-		<appender-ref ref="console"/> 
-	</logger>
+    <!-- sql 로깅 -->
+    <logger name="jdbc.sqlonly" additivity="false"> 
+      <level value="info" /> 
+      <appender-ref ref="console" /> 
+    </logger> 
+  
+    <logger name="jdbc.audit" additivity="false">
+          <level value="warn" />
+          <appender-ref ref="console" />
+    </logger>
 
-	<logger name="jdbc.audit" additivity="false"> 
-		<level value="warn"/>  
-		<appender-ref ref="console"/> 
-	</logger> 
+    <!-- info부터 적용 기본적인 resultset-->
+    <!-- resultsettable 만 사용하기 위해서 로그레벨은 warning시킨다. resurtset이 중복됨 --> 
+    <logger name="jdbc.resultset" additivity="false">
+        <level value="warn" />
+        <appender-ref ref="console" />
+    </logger>
 
-	<logger name="jdbc.resultset" additivity="false">
-		<level value="warn" />
-		<appender-ref ref="console"/> 
-	</logger>
-
-	<logger name="jdbc.resultsettable" additivity="false"> 
-		<level value="info"/>  
-		<appender-ref ref="console"/> 
-
-	</logger> 
-
+    <!-- 수행시간을 찍는다-->
+    <logger name="jdbc.sqltiming" additivity="false">
+        <level value="warn" />
+        <appender-ref ref="console" />
+    </logger>
+	
 	<!-- Root Logger -->
 	<root>
 		<priority value="warn" />

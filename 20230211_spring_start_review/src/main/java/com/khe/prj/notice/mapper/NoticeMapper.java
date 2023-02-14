@@ -1,6 +1,7 @@
 package com.khe.prj.notice.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.khe.prj.notice.service.NoticeVO;
 
@@ -14,6 +15,8 @@ public interface NoticeMapper {
 		int noticeUpdate(NoticeVO vo); // 글수정
 		int noticeDelete(NoticeVO vo); // 글삭제
 		
-		// 조회수
+		int noticeViewCnt(NoticeVO vo); //조회수
+		
+		List<NoticeVO> ajaxNoticeSearch(Map<String,String> searchMap); //검색
 
 }

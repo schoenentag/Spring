@@ -1,6 +1,7 @@
 package com.khe.prj.notice.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,16 @@ public class NoticeServiceImpl implements NoticeService {
 	public int noticeDelete(NoticeVO vo) {
 		return map.noticeDelete(vo);
 	}
-
+	
+	//조회수
+	@Override
+	public int noticeViewCnt(NoticeVO vo) {
+		return map.noticeViewCnt(vo);
+	}
+	
+	//검색
+	@Override
+	public List<NoticeVO> ajaxNoticeSearch(Map<String,String> searchMap) {
+		return map.ajaxNoticeSearch(searchMap);
+	};
 }

@@ -12,15 +12,59 @@
     <select id="noticeListOne" parameterType="com.khe.prj.notice.service.NoticeVO" resultType="com.khe.prj.notice.service.NoticeVO">
         SELECT NOTICE_ID, NOTICE_WRITER, NOTICE_TITLE, NOTICE_SUBJECT, NOTICE_DATE, NOTICE_HIT
         FROM NOTICE
-        WHERE NOTICE_ID = #{noticeId}
+        WHERE NOTICE_ID = ${noticeId}
     </select>
     <!-- 등록 -->
     <insert id="noticeInsert">
+        <selectKey keyProperty="noticeId" order="BEFORE" resultType="int">
+        	SELECT NVL(MAX(NOTICE_ID),0)+1
+        	FROM NOTICE
+        </selectKey>
+        INSERT INTO NOTICE
+                    (NOTICE_ID, NOTICE_WRITER, NOTICE_TITLE, NOTICE_SUBJECT, 
+                    NOTICE_DATE, NOTICE_HIT, NOTICE_ATTACH, NOTICE_ATTACH_DIR)
+               VALUES
+                    (#{noticeId}, #{noticeWriter}, #{noticeTitle},#{noticeSubject},
+                    SYSDATE, 0, null, null)
     </insert>
     <!-- 수정 -->
     <update id="noticeUpdate">
+        UPDATE NOTICE SET NOTICE_TITLE = #{noticeTitle}, 
+                          NOTICE_SUBJECT = #{noticeSubject},
+                          NOTICE_ATTACH = #{noticeAttach},
+                          NOTICE_ATTACH_DIR = #{noticeAttachDir}
+                       WHERE NOTICE_ID = ${noticeId}
+    </update>
+    <!-- 조회수 수정 -->
+    <update id="noticeViewCnt">
+        UPDATE NOTICE SET NOTICE_HIT =  NOTICE_HIT +1
+        WHERE NOTICE_ID = #{noticeId}
     </update>
     <!-- 삭제 -->
     <delete id="noticeDelete">
+         DELETE FROM NOTICE 
+                WHERE NOTICE_ID = ${noticeId}
     </delete>
+    <!-- 검색 -->
+    <select id="ajaxNoticeSearch" parameterType="map" resultType="com.khe.prj.notice.service.NoticeVO">
+        SELECT NOTICE_ID, NOTICE_WRITER, NOTICE_TITLE, NOTICE_DATE, NOTICE_HIT
+        FROM NOTICE
+        <where>
+	        <choose>
+	            <!-- 제목 -->
+	            <when test="inputType == 'T'.toString()">
+	                NOTICE_TITLE LIKE '%'||#{inputKeyword}||'%'
+	            </when>
+	            <!-- 제목 + 내용 -->
+	            <when test="inputType == 'TS'.toString()">
+	                NOTICE_TITLE LIKE '%'||#{inputKeyword} OR NOtICE_SUBJECT LIKE '%'||#{inputKeyword}||'%'
+	            </when>
+	            <!-- 작성자 -->
+	            <when test="inputType == 'W'.toString()">
+	                NOTICE_WRITER LIKE '%'||#{inputKeyword}||'%'
+	            </when>
+	        </choose>
+        </where>
+        
+    </select>
 </mapper>
